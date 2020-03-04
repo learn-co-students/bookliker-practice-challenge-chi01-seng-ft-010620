@@ -9,7 +9,7 @@ const header = document.getElementById('header')
 const newBrewery = document.getElementById('new-brewery')
 
 
-const fetchBreweries = (event) => {
+const fetchBreweries = event => {
     event.preventDefault()
     state = event.target.state.value
     form.reset()
@@ -21,10 +21,12 @@ const fetchBreweries = (event) => {
 
 const renderData = breweries => {
     ul.innerHTML = ''
-    breweries.forEach(brewery => {
-        const li = `<li class='list-group-item' data-id=${brewery.id} >${brewery.name}</li>`
-        ul.innerHTML += li
-    })
+    breweries.forEach(brewery => addToBreweryList(brewery))
+}
+
+const addToBreweryList = brewery => {
+    const li = `<li class='list-group-item' data-id=${brewery.id} style="background: lightblue">${brewery.name}</li>`
+    ul.innerHTML += li
 }
 
 const fetchBreweryInfo = event => {
@@ -40,26 +42,37 @@ const showBrewery = brewery => {
     const breweryInfo = `<h2>Name: ${brewery.name}</h2>
     <h4 class="capitalize">Type: ${brewery.kind}</h4>
     <a href=${brewery.website} target='_blank'>${brewery.name}'s Website</a>
-    <h3>Address: ${brewery.address}, ${brewery.city}, ${brewery.state}</h3>
+    <h4>Address: ${brewery.address} ${brewery.city}, ${brewery.state}</h4>
     <a href=https://www.google.com/maps/search/${search} target='_blank'>Google Maps</a>
+    <h3>Beers</h3>
     <ul id='beer'>
     </ul>
     <button type='button' id='add' data-id=${brewery.id}>MORE BEERS</button>`
     div.innerHTML = breweryInfo
     const button = document.getElementById('add')
     button.addEventListener('click', newBeerFetch)
-    if (brewery.beers.length > 0) brewery.beers.forEach(beer => showBeer(beer))
+    const beerUl = document.getElementById('beer')
+    if (brewery.beers.length > 0) {
+        brewery.beers.forEach(beer => {
+            const li = `<li id=${beer.id} class='list-group-item'>${beer.name}<br><button type="button" class="button" data-id=${beer.id}>I DON'T EXIST</button></li><br>`
+            beerUl.innerHTML += li
+            beerUl.addEventListener('click', destroyFetch)
+        })
+    } else {
+        const noBeerTag = "<li>Oh no, there's no beer!</li>"
+        beerUl.innerHTML = noBeerTag
+    }
 }
 
-const newBeerFetch = (event) => {
+const newBeerFetch = event => {
     const breweryId = parseInt(event.target.dataset.id)
     fetch('http://localhost:3000/beers', createBeer(breweryId))
         .then(resp => resp.json())
-        .then(beer => showBeer(beer))
+        .then(brewery => showBrewery(brewery))
         .catch(err => console.log(err))
 }
 
-const createBeer = (breweryId) => {
+const createBeer = breweryId => {
     return {
         method: 'POST',
         headers: {
@@ -70,14 +83,7 @@ const createBeer = (breweryId) => {
     }
 }
 
-const showBeer = (beer) => {
-    const beerUl = document.getElementById('beer')
-    const li = `<li id=${beer.id}>${beer.name}</li><button type="button" class="button"data-id=${beer.id}>I DON'T EXIST</button>`
-    beerUl.innerHTML += li
-    beerUl.addEventListener('click', destroyFetch)
-}
-
-const destroyFetch = (event) => {
+const destroyFetch = event => {
     if (event.target.className === 'button') {
         const beerId = parseInt(event.target.dataset.id)
         fetch(`http://localhost:3000/beers/${beerId}`, destroyBeer(beerId))
@@ -87,7 +93,7 @@ const destroyFetch = (event) => {
     }
 }
 
-const destroyBeer = (beerId) => {
+const destroyBeer = beerId => {
     return {
         method: 'DELETE', 
         headers: {
@@ -96,13 +102,6 @@ const destroyBeer = (beerId) => {
         },
         body: JSON.stringify({id: beerId})
     }
-}
-
-const createButton = () => {
-    const button = document.createElement("BUTTON")
-        button.innerText = "Show More Breweries"
-        container.append(button)
-        button.addEventListener('click', fetchMoreBreweries)
 }
 
 const showNewBreweryForm = () => {
@@ -114,7 +113,7 @@ const showNewBreweryForm = () => {
     }
 }
 
-const addNewBreweryFetch = (event) => {
+const addNewBreweryFetch = event => {
     event.preventDefault()
     const postInfo = {
     name: event.target.name.value,
@@ -124,17 +123,18 @@ const addNewBreweryFetch = (event) => {
     state: event.target.state.value,
     website: event.target.website.value
     }
+    debugger
     newBrewery.reset()
     fetch('http://localhost:3000/breweries', createBrewery(postInfo))
         .then(resp => resp.json())
         .then(brewery => {
-            addToBreweryList(brewery)
+            if (brewery.state === state) addToBreweryList(brewery);
             showBrewery(brewery)
         })
         .catch(err => console.log(err))
 }
 
-const createBrewery = (postInfo) => {
+const createBrewery = postInfo => {
     return {
         method: 'POST',
         headers: {
@@ -142,13 +142,6 @@ const createBrewery = (postInfo) => {
             'Accept': 'application/json'
         },
         body: JSON.stringify(postInfo)
-    }
-}
-
-const addToBreweryList = (brewery) => {
-    if (brewery.state === state) {
-    const li = `<li class='list-group-item' data-id=${brewery.id} >${brewery.name}</li>`
-    ul.innerHTML += li
     }
 }
 
