@@ -1,4 +1,28 @@
 body {
-	display: grid;
-	grid-template-columns: 2fr 8fr
+	display: block;
+	color: rgba(0, 0, 0, 0.904);
+} 
+
+h1 {
+	text-align: center;
 }
+.header {
+	text-align: center;
+	color: rgba(0, 0, 0, 0.904);
+}
+
+form {
+	text-align: center;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: 3fr 9fr;	
+}
+
+.capitalize {
+	text-transform: capitalize;
+  } 
+
+
+  
