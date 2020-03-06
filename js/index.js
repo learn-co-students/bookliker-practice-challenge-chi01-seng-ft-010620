@@ -7,12 +7,14 @@ const container = document.getElementById('container')
 const addNewBrewery = document.getElementById('add-new-brewery')
 const header = document.getElementById('header')
 const newBrewery = document.getElementById('new-brewery')
+const breweryTitle = document.getElementById('title')
+const navSearch = document.getElementById('search-bar')
 
 
 const fetchBreweries = event => {
     event.preventDefault()
     state = event.target.state.value
-    form.reset()
+    event.target.reset()
     fetch(`http://localhost:3000/breweries`)
         .then(resp => resp.json())
         .then(breweries => renderData(breweries.filter(brewery => brewery.state === state)))
@@ -21,11 +23,12 @@ const fetchBreweries = event => {
 
 const renderData = breweries => {
     ul.innerHTML = ''
+    breweryTitle.innerHTML = "<h2 style='color: white' class='display-2 text-center'>Breweries:</h2>"
     breweries.forEach(brewery => addToBreweryList(brewery))
 }
 
 const addToBreweryList = brewery => {
-    const li = `<li class='list-group-item' data-id=${brewery.id} style="background: lightblue">${brewery.name}</li>`
+    const li = `<li id=${brewery.id} class='list-group-item' data-id=${brewery.id}>${brewery.name}</li>`
     ul.innerHTML += li
 }
 
@@ -54,7 +57,7 @@ const showBrewery = brewery => {
     const beerUl = document.getElementById('beer')
     if (brewery.beers.length > 0) {
         brewery.beers.forEach(beer => {
-            const li = `<li id=${beer.id} class='list-group-item'>${beer.name}<br><button type="button" class="button" data-id=${beer.id}>I DON'T EXIST</button></li><br>`
+            const li = `<li style='background-color: black' id=${beer.id} class='list-group-item'>${beer.name}<br><button type="button" class="button" data-id=${beer.id}>I DON'T EXIST</button></li><br>`
             beerUl.innerHTML += li
             beerUl.addEventListener('click', destroyFetch)
         })
@@ -149,5 +152,6 @@ ul.addEventListener('click', fetchBreweryInfo)
 form.addEventListener('submit', fetchBreweries)
 addNewBrewery.addEventListener('click', showNewBreweryForm)
 newBrewery.addEventListener('submit', addNewBreweryFetch)
+navSearch.addEventListener('submit', fetchBreweries)
 
 showNewBreweryForm()

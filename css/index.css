@@ -1,29 +1,42 @@
 body {
-	display: block;
-	color: rgba(0, 0, 0, 0.904);
+	background-color: black; 
 } 
 
 /* h1 {
 	text-align: center;
 } */
-.header {
-	text-align: center;
-	color: rgba(0, 0, 0, 0.904);
-	background-color: rgb(255, 255, 255);
-}
 
-/* form {
-	text-align: center;
+/* #header{
+	opacity: 0.5
 } */
 
 .container {
 	display: grid;
 	grid-template-columns: 5fr 9fr;	
-}
+} 
 
 .capitalize {
 	text-transform: capitalize;
   } 
+
+.jumbotron {
+	margin-bottom: 0;
+	background: url('beer.jpeg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#search-bar {
+	position: absolute;
+  	right: 0px;
+}
+#show-panel {
+	color: white
+}
+
+
 
 
   
