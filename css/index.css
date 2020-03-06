@@ -1,4 +1,42 @@
 body {
+	background-color: black; 
+} 
+
+/* h1 {
+	text-align: center;
+} */
+
+/* #header{
+	opacity: 0.5
+} */
+
+.container {
 	display: grid;
-	grid-template-columns: 2fr 8fr
+	grid-template-columns: 5fr 9fr;	
+} 
+
+.capitalize {
+	text-transform: capitalize;
+  } 
+
+.jumbotron {
+	margin-bottom: 0;
+	background: url('beer.jpeg') no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
+
+#search-bar {
+	position: absolute;
+  	right: 0px;
+}
+#show-panel {
+	color: white
+}
+
+
+
+
+  

@@ -1,18 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+</style>
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<link rel="stylesheet" href="./css/index.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-
-	<div id="list-panel">
-		<ul id="list">
-
-		</ul>
+	<nav class="nav-pills sticky-top" style='background-color: black'>
+		<div class="container">
+		<a class="nav-link" href="">The Brew Crew</a>
+		<form class="form-inline my-2 my-lg-0" id='search-bar'>
+			<input class="form-control mr-sm-2" type="text" placeholder="STATE" id='state'>
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
 	</div>
-	<div id="show-panel"></div>
-	<script type="text/javascript" src="./js/index.js"></script>
+	  </nav>
+	<div class="jumbotron jumbotron-fluid text-white text-center" id='header'>
+			<h1 class='display-1' style='bold' >THE BREW CREW</h1><br>
+			<link rel="stylesheet" href="./css/index.css"> 
+			<form id='location'> 
+				<input type="text" id="state" placeholder="STATE" class='text-center'><br>
+				<input type="submit" value="Search"><br><br>
+			</form>
+			<button class="btn btn-secondary" id='add-new-brewery'>Add New Brewery</button>
+			<form id='new-brewery'>
+				<div class='row'>
+					<div class='col'>
+						<label for="name">Name:</label>
+						<input type="text" id="name" value="Revolution Brewing">
+					</div>
+					<div class='col'>
+						<label for="kind">Kind:</label>
+						<input type="text" id="kind" value="micro">
+					</div>
+					<div class='col'>
+						<label for="website">Website:</label>
+						<input type="text" id="website" value="revbrew.com">
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col'>
+						<label for="address">Adress:</label>
+						<input type="text" id="address" value="3340 N Kedzie Ave">
+					</div>
+					<div class='col'>
+						<label for="city">City:</label>
+						<input type="text" id="city" value="Chicago">
+					</div>
+					<div class='col'>
+						<label for="state">State:</label>
+						<input type="text" id="state" value="Illinois">
+					</div>
+				</div>
+				<input type="submit" value="Submit">
+				</div>
+			</form>
+		</div>
+	<div id='title'>
+
+	</div>
+	<div class="container" id="container">
+		<div id="list-panel" class='row'>
+			<ul class="col-sm-10" id="list-group">
+
+			</ul>
+		</div>
+		<div id="show-panel" class="show-panel"></div>
+	</div>
+	<script type="text/javascript" src="./js/index.js" defer></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
